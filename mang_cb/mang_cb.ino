@@ -11,18 +11,18 @@
 const char* ssid = "8168TKT5";
 const char* pass = "tumotdentam";
 // config pin sensor
-const int sensor_1 = 32;
-const int sensor_2 = 33;
-const int sensor_3 = 34;
-const int sensor_4 = 35;
-const int Pin_output = 2;
+const uint8_t sensor_1 = 32;
+const uint8_t sensor_2 = 33;
+const uint8_t sensor_3 = 34;
+const uint8_t sensor_4 = 35;
+const uint8_t Pin_output = 2;
 // value read from sensor
-int val_1;
-int val_2;
-int val_3;
-int val_4;
+uint8_t val_1;
+uint8_t val_2;
+uint8_t val_3;
+uint8_t val_4;
 
-int button;
+uint8_t button;
 WidgetLED LED_ON_APP(V2);
 
 //read val sensor
@@ -60,17 +60,18 @@ BLYNK_WRITE(V1)
 void setup() {
   Serial.begin(9600);
   // put your setup code here, to run once:
-  //pinMode(Pin_input, INPUT);
   pinMode(Pin_output, OUTPUT);
   digitalWrite(Pin_output, 0);
   Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
 }
 
-void loop() {
+void loop() 
+{
   Blynk.run();
   
   update_sensor();
   int average_humidity = (val_1 + val_2 + val_3 + val_4) / 4;
   Blynk.virtualWrite(V0, average_humidity);
+  delay(1000);
 }
 
